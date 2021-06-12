@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { QuestionBase } from '../forms/questions/question-base';
-import { CheckboxQuestion } from '../forms/questions/question-checkbox';
-import { DropdownQuestion } from '../forms/questions/question-dropdown';
-import { RadioQuestion } from '../forms/questions/question-radio';
-import { TextboxQuestion } from '../forms/questions/question-textbox';
-import { QuestionType } from '../forms/questions/question-type';
+import { FieldBase } from '../forms/fields/field-base';
+import { CheckboxField } from '../forms/fields/checkbox-field';
+import { DropdownField } from '../forms/fields/dropdown-field';
+import { RadioField } from '../forms/fields/radio-field';
+import { TextboxField } from '../forms/fields/textbox-field';
+import { QuestionType } from '../forms/fields/field-type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionService {
-  questions = `[
+  fields = `[
     {
       "type": "dropdown",
       "key": "experienceModel",
@@ -27,7 +27,7 @@ export class QuestionService {
       "type": "textbox",
       "key": "firstName",
       "label": "First name",
-      "value": "John",
+      "placeholder": "John",
       "required": true,
       "order": 1
     },
@@ -35,7 +35,7 @@ export class QuestionService {
       "type": "textbox",
       "key": "lastName",
       "label": "Last name",
-      "value": "Smith",
+      "placeholder": "Smith",
       "required": true,
       "order": 2
     },
@@ -52,26 +52,26 @@ export class QuestionService {
     }
   ]`;
 
-  getQuestions() {
-    const questionJson = JSON.parse(this.questions);
-    const questions: QuestionBase<any>[] = [];
-    for (let question of questionJson) {
-      const questionObject = this.resolveQuestion(question);
-      if (questionObject) questions.push(questionObject);
+  getFields() {
+    const fieldsJson = JSON.parse(this.fields);
+    const fields: FieldBase<any>[] = [];
+    for (let field of fieldsJson) {
+      const fieldObject = this.resolveFieldType(field);
+      if (fieldObject) fields.push(fieldObject);
     }
-    return of(questions.sort((a, b) => a.order - b.order));
+    return of(fields.sort((a, b) => a.order - b.order));
   }
 
-  resolveQuestion(question: QuestionBase<any>): QuestionBase<any> | null {
-    switch (question.type) {
+  resolveFieldType(field: FieldBase<any>): FieldBase<any> | null {
+    switch (field.type) {
       case QuestionType.Checkbox:
-        return new CheckboxQuestion(question);
+        return new CheckboxField(field);
       case QuestionType.Dropdown:
-        return new DropdownQuestion(question);
+        return new DropdownField(field);
       case QuestionType.Radio:
-        return new RadioQuestion(question);
+        return new RadioField(field);
       case QuestionType.Textbox:
-        return new TextboxQuestion(question);
+        return new TextboxField(field);
       default:
         return null;
     }

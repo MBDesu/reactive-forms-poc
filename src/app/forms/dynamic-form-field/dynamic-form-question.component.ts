@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { QuestionBase } from '../../questions/question-base';
-import { QuestionType } from '../../questions/question-type';
+import { FieldBase } from '../fields/field-base';
+import { QuestionType } from '../fields/field-type';
 
 @Component({
   selector: 'app-question',
@@ -10,7 +10,7 @@ import { QuestionType } from '../../questions/question-type';
 })
 export class DynamicFormQuestionComponent {
 
-  @Input() question!: QuestionBase<string>;
+  @Input() question!: FieldBase<string>;
   @Input() form!: FormGroup;
   QuestionType = QuestionType;
 

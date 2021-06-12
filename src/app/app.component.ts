@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { QuestionBase } from './forms/questions/question-base';
-import { QuestionService } from './services/question.service';
+import { FieldBase } from './forms/fields/field-base';
+import { QuestionService } from './services/field.service';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +11,10 @@ import { QuestionService } from './services/question.service';
 export class AppComponent {
   title = 'reactive-forms-poc';
 
-  questions: Observable<QuestionBase<any>[]>;
+  questions: Observable<FieldBase<any>[]>;
 
   constructor(private questionService: QuestionService) {
-    this.questions = this.questionService.getQuestions();
+    this.questions = this.questionService.getFields();
   }
 
 }

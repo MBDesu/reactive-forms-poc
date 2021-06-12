@@ -8,6 +8,7 @@
     </div>
   </form>
   <div *ngIf="payload" class="form-row">
-    <strong>Saved the following values</strong><br />{{ payload }}
+    <strong>Saved the following values</strong><br />
+    <pre [innerHTML]="payload"></pre>
   </div>
 </div>

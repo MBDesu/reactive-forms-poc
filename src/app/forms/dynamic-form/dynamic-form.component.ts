@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { QuestionControlService } from 'src/app/services/question-control.service';
-import { QuestionBase } from '../questions/question-base';
+import { FieldControlService } from 'src/app/services/field-control.service';
+import { FieldBase } from '../fields/field-base';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -10,18 +10,18 @@ import { QuestionBase } from '../questions/question-base';
 })
 export class DynamicFormComponent implements OnInit {
 
-  @Input() questions: QuestionBase<string>[] = [];
+  @Input() questions: FieldBase<string>[] = [];
   form!: FormGroup;
   payload = '';
 
-  constructor(private questionControlService: QuestionControlService) { }
+  constructor(private questionControlService: FieldControlService) { }
 
   ngOnInit(): void {
     this.form = this.questionControlService.toFormGroup(this.questions);
   }
 
   onSubmit(): void {
-    this.payload = JSON.stringify(this.form.getRawValue());
+    this.payload = JSON.stringify(this.form.getRawValue(), null, 2);
   }
 
 }
